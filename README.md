@@ -253,3 +253,5 @@ I found the following references very helpful in completing the above. In no par
 - https://github.com/gluster/gluster-kubernetes/tree/master/docs/examples/hello_world
 - https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
 - https://www.youtube.com/playlist?list=PLj_IGCS9P2Sn_MwgDO5gMXPGa88h7cPN2
+- kubernetes.slack.com
+- googlecloud-community.slack.com
