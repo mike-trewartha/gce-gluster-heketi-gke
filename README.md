@@ -46,7 +46,7 @@ gcloud container --project "heketi" clusters create "cluster-1" --zone "australi
 
 Great, next we'll prepare some GCE SSD Persistent Disks to become the gluster bricks
 ```sh
-for i in a b c; do gcloud compute disks create "gluster1-$i-disk-1" --size "15" --zone "australia-southeast1-$i" --type "pd-ssd"; done
+for i in a b c; do gcloud compute disks create "gluster1-$i-disk-1" --size "30" --zone "australia-southeast1-$i" --type "pd-ssd"; done
 ```
 
 Time to deploy our 3 GCE instances which will run our gluster cluster.
