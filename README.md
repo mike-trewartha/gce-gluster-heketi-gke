@@ -105,7 +105,7 @@ ssh-keygen -f /etc/heketi/heketi_key -t rsa -N '' && chown heketi:heketi /etc/he
 
 Back on your local machine, grab the output of the public key from above, and replace it in the command below (ie: '<<PUBLIC_KEY>>' should become 'ssh-rsa AAAAB3NzaC...lnst root@gluster1-a' )
 ```sh
-for i in a b c; do gcloud compute ssh --zone australia-southeast1-${i} gluster1-${i} --command "sudo mkdir /root/.ssh/ && sudo chmod 644 /root/.ssh/ && sudo umask 022 && sudo chmod ; sudo echo '<<PUBLIC_KEY>>' | sudo tee --append /root/.ssh/authorized_keys"; done
+for i in a b c; do gcloud compute ssh --zone australia-southeast1-${i} gluster1-${i} --command "umask 0077 && sudo mkdir /root/.ssh/ && echo '<<PUBLIC_KEY>>' | sudo tee --append /root/.ssh/authorized_keys"; done
 ```
 
 Before we forget, lets tag that gluster1-a GCE instance to allow that firewall rule we created at the beginning to permit traffic to TCP:8080 from the public internet!
