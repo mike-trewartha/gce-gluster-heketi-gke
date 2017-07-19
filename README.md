@@ -123,7 +123,7 @@ sed -i 's/sshuser/root/g' /etc/heketi/heketi.json
 sed -i 's/Optional: ssh port.  Default is 22/22/g' /etc/heketi/heketi.json
 sed -i 's/Optional: Specify fstab file on node.  Default is \/etc\/fstab/\/etc\/fstab/g' /etc/heketi/heketi.json
 sed -i 's/"executor": "mock",/"executor": "ssh",/g' /etc/heketi/heketi.json
-sed -i 's/"My Secret"/secretk3y!/g' /etc/heketi/heketi.json
+sed -i 's/"My Secret"/"secretk3y!"/g' /etc/heketi/heketi.json
 systemctl enable heketi
 systemctl restart heketi
 ```
