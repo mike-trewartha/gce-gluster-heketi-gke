@@ -51,7 +51,19 @@ for i in a b c; do gcloud compute disks create "gluster1-$i-disk-1" --size "30" 
 
 Time to deploy our 3 GCE instances which will run our Gluster cluster.
 ```sh
-for i in a b c; do gcloud compute --project "heketi" instances create "gluster1-$i" --zone "australia-southeast1-$i" --machine-type "n1-standard-1" --subnet "default"  --maintenance-policy "MIGRATE" --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring.write","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --image "centos-7-v20170620" --image-project "centos-cloud" --boot-disk-size "10" --boot-disk-type "pd-standard" --boot-disk-device-name "gluster1-$i"; done
+for i in a b c; do 
+  gcloud compute instances create "gluster1-$i" \
+    --boot-disk-device-name "gluster1-$i" \
+    --boot-disk-size "10" \
+    --boot-disk-type "pd-standard" \
+    --image "centos-7-v20170620" \
+    --image-project "centos-cloud" \
+    --machine-type "n1-standard-1" \
+    --maintenance-policy "MIGRATE" \
+    --project "heketi" \
+    --subnet "default"  \
+    --zone "australia-southeast1-$i"
+done
 ```
 
 Finally, attach the SSD PD's to the GCE instances
