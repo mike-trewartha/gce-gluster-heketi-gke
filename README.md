@@ -105,7 +105,7 @@ ssh-keygen -f /etc/heketi/heketi_key -t rsa -N '' && chown heketi:heketi /etc/he
 
 Back on your local machine, grab the output of the public key from above, and replace it in the command below (ie: '<<PUBLIC_KEY>>' should become 'ssh-rsa AAAAB3NzaC...lnst root@gluster1-a' )
 ```sh
-for i in a b c; do gcloud compute ssh --zone australia-southeast1-${i} gluster1-${i} --command "sudo echo '<<PUBLIC_KEY>>' | sudo tee --append /root/.ssh/authorized_keys"; done
+for i in a b c; do gcloud compute ssh --zone australia-southeast1-${i} gluster1-${i} --command "sudo mkdir /root/.ssh/ && sudo chmod 644 /root/.ssh/ && sudo umask 022 && sudo chmod ; sudo echo '<<PUBLIC_KEY>>' | sudo tee --append /root/.ssh/authorized_keys"; done
 ```
 
 Before we forget, lets tag that gluster1-a GCE instance to allow that firewall rule we created at the beginning to permit traffic to TCP:8080 from the public internet!
@@ -116,6 +116,7 @@ gcloud compute instances add-tags gluster1-a --tags heketi --zone australia-sout
 Jump back into gluster1-a and finalise the Heketi configuration
 ```sh
 gcloud compute ssh --zone australia-southeast1-a gluster1-a
+sudo su -
 cp /etc/heketi/heketi.json /etc/heketi/heketi.json.bak
 sed -i 's/path\/to\/private_key/\/etc\/heketi\/heketi_key/g' /etc/heketi/heketi.json
 sed -i 's/sshuser/root/g' /etc/heketi/heketi.json
